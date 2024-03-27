@@ -1,5 +1,5 @@
 shader_type canvas_item;
-
+// CREDIT: https://godotshaders.com/shader/vignette/
 uniform float alpha = 1.0;
 uniform float inner_radius = 0.0;
 uniform float outer_radius = 1.0;

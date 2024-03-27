@@ -1,3 +1,4 @@
+// CREDIT: https://pastebin.com/YmRfSVpG
 // Converted from https://www.shadertoy.com/view/td2GzW
 shader_type canvas_item;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;

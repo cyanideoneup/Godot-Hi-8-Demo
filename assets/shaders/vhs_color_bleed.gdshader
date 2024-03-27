@@ -1,3 +1,7 @@
+// CREDIT: hunterk on the RetroArch GitHub 
+// https://github.com/exokitxr/emukit/blob/f3b41ed82eb5e870e3b7d7f6ffdf99f311ec37c2/assets/frontend/bundle/shaders/shaders_glsl/vhs/shaders/vhs.glsl
+// Original author on ShaderToy
+// https://www.shadertoy.com/view/XlsczN
 shader_type canvas_item;
 
 group_uniforms Wiggle;
