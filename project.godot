@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Hi8 Ddemo"
+config/name="Hi8 Demo"
 run/main_scene="res://scenes/demo_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://camcordericon.png"
 
 [display]
 
