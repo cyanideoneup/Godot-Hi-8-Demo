@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgpjxoygnvyy4"]
+[gd_scene load_steps=5 format=3 uid="uid://dgpjxoygnvyy4"]
 
 [ext_resource type="Script" path="res://assets/simple_fpsplayer/Player.gd" id="1_1fhis"]
 [ext_resource type="Script" path="res://assets/simple_fpsplayer/ability_grab.gd" id="2_gwqkd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euj4i"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_uj8wo"]
+auto_exposure_enabled = true
+auto_exposure_speed = 2.5
+auto_exposure_min_sensitivity = 50.0
+auto_exposure_max_sensitivity = 200.0
 
 [node name="Player" type="CharacterBody3D"]
 disable_mode = 2
@@ -17,6 +23,8 @@ shape = SubResource("CapsuleShape3D_euj4i")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="rotation_helper"]
+attributes = SubResource("CameraAttributesPractical_uj8wo")
+fov = 90.0
 
 [node name="flashlight_player" type="SpotLight3D" parent="rotation_helper/Camera3D"]
 visible = false

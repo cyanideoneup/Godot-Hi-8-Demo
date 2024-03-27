@@ -88,7 +88,7 @@ shader_parameter/strength = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xtt21"]
 shader = ExtResource("4_rqixc")
-shader_parameter/effect_amount = 1.0
+shader_parameter/effect_amount = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1m3a"]
 shader = ExtResource("5_4wpnf")
