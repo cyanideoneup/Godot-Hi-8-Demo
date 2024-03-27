@@ -1,0 +1,147 @@
+[gd_scene load_steps=18 format=3 uid="uid://ctrqmsr0pyume"]
+
+[ext_resource type="Shader" path="res://assets/shaders/sharpen.gdshader" id="1_ybrub"]
+[ext_resource type="Shader" path="res://assets/shaders/fisheye.gdshader" id="2_yj28u"]
+[ext_resource type="Shader" path="res://assets/shaders/chromatic_aberration.gdshader" id="3_8pjt1"]
+[ext_resource type="Shader" path="res://assets/shaders/vhs_wiggle.gdshader" id="4_gl6sd"]
+[ext_resource type="Shader" path="res://assets/shaders/vhs_color_bleed.gdshader" id="5_38f3k"]
+[ext_resource type="Shader" path="res://assets/shaders/vignette.gdshader" id="6_xr7m8"]
+[ext_resource type="Shader" path="res://assets/shaders/grain.gdshader" id="7_so3lg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_42vu3"]
+shader = ExtResource("1_ybrub")
+shader_parameter/strength = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtt21"]
+shader = ExtResource("2_yj28u")
+shader_parameter/effect_amount = 1.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1m3a"]
+shader = ExtResource("3_8pjt1")
+shader_parameter/levels = 3
+shader_parameter/spread = 0.003
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7b6o2"]
+frequency = 0.4394
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_445nm"]
+noise = SubResource("FastNoiseLite_7b6o2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w2755"]
+shader = ExtResource("4_gl6sd")
+shader_parameter/strength = 5.0
+shader_parameter/uv_scaling = 1.0
+shader_parameter/movement_direction = Vector2(1, 1)
+shader_parameter/movement_speed = 0.5
+shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_445nm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sa2jk"]
+shader = ExtResource("5_38f3k")
+shader_parameter/wiggle = 0.22
+shader_parameter/wiggle_speed = 70.0
+shader_parameter/smear = 1.5
+shader_parameter/blur_samples = 15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3d14i"]
+shader = ExtResource("6_xr7m8")
+shader_parameter/alpha = 1.0
+shader_parameter/inner_radius = 0.405
+shader_parameter/outer_radius = 2.385
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vw16o"]
+shader = ExtResource("1_ybrub")
+shader_parameter/strength = 0.6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hyboy"]
+shader = ExtResource("7_so3lg")
+shader_parameter/strength = 20.0
+
+[node name="PostProcessingStack" type="CanvasLayer"]
+
+[node name="Sharpen1" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Sharpen1"]
+material = SubResource("ShaderMaterial_42vu3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Fisheye" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Fisheye"]
+material = SubResource("ShaderMaterial_xtt21")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ChromaticAberration" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ChromaticAberration"]
+material = SubResource("ShaderMaterial_m1m3a")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VHSWiggle" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="VHSWiggle"]
+material = SubResource("ShaderMaterial_w2755")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VHSColorBleed" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="VHSColorBleed"]
+material = SubResource("ShaderMaterial_sa2jk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Vignette" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Vignette"]
+material = SubResource("ShaderMaterial_3d14i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Sharpen2" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Sharpen2"]
+material = SubResource("ShaderMaterial_vw16o")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Grain" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Grain"]
+material = SubResource("ShaderMaterial_hyboy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

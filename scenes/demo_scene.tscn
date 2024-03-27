@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b2atty88epv06"]
+[gd_scene load_steps=37 format=3 uid="uid://b2atty88epv06"]
 
 [ext_resource type="Texture2D" uid="uid://d2v8hv2j61vwl" path="res://assets/hdri/skidpan_2k.hdr" id="1_ro586"]
 [ext_resource type="Texture2D" uid="uid://cpm32j8flctgn" path="res://assets/textures/dark.png" id="1_snbdy"]
@@ -11,6 +11,8 @@
 [ext_resource type="Shader" path="res://assets/shaders/vhs_color_bleed.gdshader" id="7_jvoku"]
 [ext_resource type="Shader" path="res://assets/shaders/vignette.gdshader" id="8_tclkb"]
 [ext_resource type="Shader" path="res://assets/shaders/grain.gdshader" id="9_5mcsh"]
+[ext_resource type="FontFile" uid="uid://bnrccfojfc6sa" path="res://assets/fonts/VCR_OSD_MONO.ttf" id="12_d02rd"]
+[ext_resource type="Script" path="res://scripts/ui/date.gd" id="12_vk5f5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4x2i"]
 albedo_color = Color(0.929412, 0.588235, 0, 1)
@@ -79,8 +81,13 @@ ssr_depth_tolerance = 34.91
 ssao_enabled = true
 ssil_enabled = true
 glow_enabled = true
-adjustment_contrast = 0.9
-adjustment_saturation = 0.9
+adjustment_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_nbssq"]
+font = ExtResource("12_d02rd")
+font_size = 32
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_42vu3"]
 shader = ExtResource("3_virnq")
@@ -93,7 +100,7 @@ shader_parameter/effect_amount = 1.5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1m3a"]
 shader = ExtResource("5_4wpnf")
 shader_parameter/levels = 3
-shader_parameter/spread = 0.003
+shader_parameter/spread = 0.01
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7b6o2"]
 frequency = 0.4394
@@ -111,7 +118,7 @@ shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_445nm")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sa2jk"]
 shader = ExtResource("7_jvoku")
-shader_parameter/wiggle = 0.22
+shader_parameter/wiggle = 0.1
 shader_parameter/wiggle_speed = 70.0
 shader_parameter/smear = 1.5
 shader_parameter/blur_samples = 15
@@ -182,8 +189,44 @@ environment = SubResource("Environment_gur40")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150363, 2, 1.19737)
 
 [node name="PostProcessingStack" type="CanvasLayer" parent="."]
+follow_viewport_scale = 850.999
+
+[node name="UI" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 128
+
+[node name="UI" type="Control" parent="PostProcessingStack/UI"]
+z_index = 4096
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PostProcessingStack/UI/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 80
+
+[node name="date" type="Label" parent="PostProcessingStack/UI/UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Test123asdasd"
+label_settings = SubResource("LabelSettings_nbssq")
+uppercase = true
+script = ExtResource("12_vk5f5")
 
 [node name="Sharpen1" type="CanvasLayer" parent="PostProcessingStack"]
+follow_viewport_scale = 363.5
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Sharpen1"]
 material = SubResource("ShaderMaterial_42vu3")
@@ -270,3 +313,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="PostProcessingStack"]
