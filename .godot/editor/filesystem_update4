@@ -1,9 +1,0 @@
-res://scenes/demo_scene.tscn
-res://assets/shaders/sharpen.gdshader
-res://assets/shaders/fisheye.gdshader
-res://assets/shaders/chromatic_aberration.gdshader
-res://assets/shaders/vhs_wiggle.gdshader
-res://assets/shaders/vhs_color_bleed.gdshader
-res://assets/shaders/vignette.gdshader
-res://assets/shaders/grain.gdshader
-res://assets/simple_fpsplayer/Player.tscn
