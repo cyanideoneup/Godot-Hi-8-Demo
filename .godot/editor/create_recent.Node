@@ -1,4 +1,8 @@
 MeshInstance3D
+StaticBody3D
+LightmapGI
+SpotLight3D
+ReflectionProbe
 RigidBody3D
 ColorRect
 CanvasLayer

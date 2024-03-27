@@ -7,3 +7,6 @@ res://assets/shaders/vhs_wiggle.gdshader
 res://assets/shaders/vhs_color_bleed.gdshader
 res://assets/shaders/vignette.gdshader
 res://assets/shaders/grain.gdshader
+res://assets/simple_fpsplayer/Player.tscn
+res://scenes/demo_scene.lmbake
+res://scenes/demo_scene.exr
