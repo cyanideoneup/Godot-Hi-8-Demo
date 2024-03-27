@@ -1,0 +1,235 @@
+[gd_scene load_steps=32 format=3 uid="uid://b2atty88epv06"]
+
+[ext_resource type="ArrayMesh" uid="uid://d05mxt55iwmkk" path="res://assets/models/monke.obj" id="1_24m2p"]
+[ext_resource type="Texture2D" uid="uid://cpm32j8flctgn" path="res://assets/textures/dark.png" id="1_snbdy"]
+[ext_resource type="Texture2D" uid="uid://cu0b1mclpgq7r" path="res://icon.svg" id="2_5p33g"]
+[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://assets/simple_fpsplayer/Player.tscn" id="2_ltg16"]
+[ext_resource type="Shader" path="res://assets/shaders/sharpen.gdshader" id="3_virnq"]
+[ext_resource type="Shader" path="res://assets/shaders/fisheye.gdshader" id="4_rqixc"]
+[ext_resource type="Shader" path="res://assets/shaders/chromatic_aberration.gdshader" id="5_4wpnf"]
+[ext_resource type="Shader" path="res://assets/shaders/vhs_wiggle.gdshader" id="6_r04ab"]
+[ext_resource type="Shader" path="res://assets/shaders/vhs_color_bleed.gdshader" id="7_jvoku"]
+[ext_resource type="Shader" path="res://assets/shaders/vignette.gdshader" id="8_tclkb"]
+[ext_resource type="Shader" path="res://assets/shaders/grain.gdshader" id="9_5mcsh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e5v4r"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_o7dwx"]
+sky_material = SubResource("ProceduralSkyMaterial_e5v4r")
+
+[sub_resource type="Environment" id="Environment_gur40"]
+background_mode = 2
+sky = SubResource("Sky_o7dwx")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4x2i"]
+albedo_color = Color(0.929412, 0.588235, 0, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4cfcg"]
+points = PackedVector3Array(-0.149396, -0.209412, -0.518171, 0.360108, 0.897683, -0.0771139, 0.359998, 0.897402, -0.117112, -1.34928, 0.3984, -0.419823, -0.159138, -0.857625, 0.678639, -0.318496, 0.614291, 0.799725, 1.34922, 0.145509, -0.419662, 0.75303, 0.412716, 0.637131, 0.0395144, 0.572353, -0.711598, 0.33702, -0.950544, 0.465496, -1.18023, -0.0230857, -0.504169, -0.752985, 0.412801, 0.637249, -0.359833, 0.897474, -0.117123, -0.337078, -0.950544, 0.465496, 1.2647, 0.482697, -0.377649, 1.18044, -0.0230857, -0.504008, 0.278953, 0.694452, 0.760402, -0.0786992, 0.0949686, -0.744817, 0.157286, -0.731472, 0.711627, -1.34928, 0.145509, -0.419823, -0.0797466, 0.854351, -0.435847, 0.395324, 0.332656, 0.793912, -0.320264, 0.697921, 0.723898, 1.27552, 0.335531, -0.515252, -1.2756, 0.335535, -0.515258, 0.151149, -0.136345, -0.60125, -1.26476, 0.482887, -0.377649, 0.210495, -0.992882, 0.465496, 0.316734, 0.808939, -0.432814, -0.395386, 0.332659, 0.79392, -0.199068, 0.892658, 0.122089, -0.782217, 0.250622, 0.550862)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7me8"]
+albedo_texture = ExtResource("2_5p33g")
+uv1_scale = Vector3(3, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_exb8c"]
+material = SubResource("StandardMaterial3D_t7me8")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g257o"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aykja"]
+albedo_texture = ExtResource("1_snbdy")
+uv1_triplanar = true
+uv1_triplanar_sharpness = 29.8571
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_yaa8u"]
+size = Vector3(100, 0.25, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_42vu3"]
+shader = ExtResource("3_virnq")
+shader_parameter/strength = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtt21"]
+shader = ExtResource("4_rqixc")
+shader_parameter/effect_amount = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1m3a"]
+shader = ExtResource("5_4wpnf")
+shader_parameter/levels = 3
+shader_parameter/spread = 0.003
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7b6o2"]
+frequency = 0.4394
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_445nm"]
+noise = SubResource("FastNoiseLite_7b6o2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w2755"]
+shader = ExtResource("6_r04ab")
+shader_parameter/strength = 5.0
+shader_parameter/uv_scaling = 1.0
+shader_parameter/movement_direction = Vector2(1, 1)
+shader_parameter/movement_speed = 0.5
+shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_445nm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sa2jk"]
+shader = ExtResource("7_jvoku")
+shader_parameter/wiggle = 0.05
+shader_parameter/wiggle_speed = 70.0
+shader_parameter/smear = 1.5
+shader_parameter/blur_samples = 15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3d14i"]
+shader = ExtResource("8_tclkb")
+shader_parameter/alpha = 1.0
+shader_parameter/inner_radius = 0.405
+shader_parameter/outer_radius = 2.385
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vw16o"]
+shader = ExtResource("3_virnq")
+shader_parameter/strength = 0.6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hyboy"]
+shader = ExtResource("9_5mcsh")
+shader_parameter/strength = 20.0
+
+[node name="DemoScene" type="Node3D"]
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_gur40")
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Suzanne" type="RigidBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Suzanne"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_k4x2i")
+mesh = ExtResource("1_24m2p")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Suzanne"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_4cfcg")
+
+[node name="GodoBox" type="RigidBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/GodoBox"]
+mesh = SubResource("BoxMesh_exb8c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/GodoBox"]
+shape = SubResource("ConvexPolygonShape3D_g257o")
+
+[node name="Floor" type="CSGMesh3D" parent="Geometry"]
+material_override = SubResource("StandardMaterial3D_aykja")
+use_collision = true
+mesh = SubResource("BoxMesh_yaa8u")
+
+[node name="Player" parent="." instance=ExtResource("2_ltg16")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150363, 2, 1.19737)
+
+[node name="PostProcessingStack" type="CanvasLayer" parent="."]
+
+[node name="Sharpen1" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Sharpen1"]
+material = SubResource("ShaderMaterial_42vu3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Fisheye" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Fisheye"]
+material = SubResource("ShaderMaterial_xtt21")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ChromaticAberration" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/ChromaticAberration"]
+material = SubResource("ShaderMaterial_m1m3a")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VHSWiggle" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/VHSWiggle"]
+material = SubResource("ShaderMaterial_w2755")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VHSColorBleed" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/VHSColorBleed"]
+material = SubResource("ShaderMaterial_sa2jk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Vignette" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Vignette"]
+material = SubResource("ShaderMaterial_3d14i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Sharpen2" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Sharpen2"]
+material = SubResource("ShaderMaterial_vw16o")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Grain" type="CanvasLayer" parent="PostProcessingStack"]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Grain"]
+material = SubResource("ShaderMaterial_hyboy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
