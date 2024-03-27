@@ -1,3 +1,3 @@
 # Hi8 Godot Ddemo
  
-![plot]([screenshot.png])
+![ScreenShot](https://raw.github.com/cyanideoneup/Godot-Hi-8-Demo/main/screenshot.PNG)
