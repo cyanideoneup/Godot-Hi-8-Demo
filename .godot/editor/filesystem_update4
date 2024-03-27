@@ -7,5 +7,3 @@ res://assets/shaders/vhs_color_bleed.gdshader
 res://assets/shaders/vignette.gdshader
 res://assets/shaders/grain.gdshader
 res://assets/simple_fpsplayer/Player.tscn
-res://assets/shaders/lensflare.gdshader
-res://scripts/ui/date.gd
