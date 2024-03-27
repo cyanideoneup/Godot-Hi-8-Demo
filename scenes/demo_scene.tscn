@@ -85,7 +85,7 @@ adjustment_enabled = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_nbssq"]
 font = ExtResource("12_d02rd")
-font_size = 32
+font_size = 48
 outline_size = 12
 outline_color = Color(0, 0, 0, 1)
 
@@ -100,7 +100,7 @@ shader_parameter/effect_amount = 1.5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1m3a"]
 shader = ExtResource("5_4wpnf")
 shader_parameter/levels = 3
-shader_parameter/spread = 0.01
+shader_parameter/spread = 0.005
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7b6o2"]
 frequency = 0.4394
@@ -118,7 +118,7 @@ shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_445nm")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sa2jk"]
 shader = ExtResource("7_jvoku")
-shader_parameter/wiggle = 0.1
+shader_parameter/wiggle = 0.05
 shader_parameter/wiggle_speed = 70.0
 shader_parameter/smear = 1.5
 shader_parameter/blur_samples = 15
@@ -138,6 +138,11 @@ shader = ExtResource("9_5mcsh")
 shader_parameter/strength = 20.0
 
 [node name="DemoScene" type="Node3D"]
+
+[node name="Read My Editor Description" type="Node" parent="."]
+editor_description = "Each post-processing effect has 10 layers of separation (lower means rendered first). To keep UI unaffected, attach it to a canvas layer with a negative 'Layer' property. Otherwise, select the desired layers for UI placement. 
+
+For instance, the date in the lower left corner is on Layer 29, following Chromatic Aberration but preceding the Fisheye effect."
 
 [node name="Geometry" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-07, 0, 0)
@@ -188,15 +193,10 @@ environment = SubResource("Environment_gur40")
 [node name="Player" parent="." instance=ExtResource("2_ltg16")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.150363, 2, 1.19737)
 
-[node name="PostProcessingStack" type="CanvasLayer" parent="."]
-follow_viewport_scale = 850.999
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 29
 
-[node name="UI" type="CanvasLayer" parent="PostProcessingStack"]
-layer = 128
-
-[node name="UI" type="Control" parent="PostProcessingStack/UI"]
-z_index = 4096
-z_as_relative = false
+[node name="UI" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -204,19 +204,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PostProcessingStack/UI/UI"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
-[node name="date" type="Label" parent="PostProcessingStack/UI/UI/MarginContainer"]
+[node name="date" type="Label" parent="UI/UI/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -225,7 +225,12 @@ label_settings = SubResource("LabelSettings_nbssq")
 uppercase = true
 script = ExtResource("12_vk5f5")
 
+[node name="PostProcessingStack" type="CanvasLayer" parent="."]
+layer = 0
+follow_viewport_scale = 850.999
+
 [node name="Sharpen1" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 10
 follow_viewport_scale = 363.5
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Sharpen1"]
@@ -238,6 +243,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Fisheye" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 20
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Fisheye"]
 material = SubResource("ShaderMaterial_xtt21")
@@ -249,6 +255,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="ChromaticAberration" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 30
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/ChromaticAberration"]
 material = SubResource("ShaderMaterial_m1m3a")
@@ -260,6 +267,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="VHSWiggle" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 40
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/VHSWiggle"]
 material = SubResource("ShaderMaterial_w2755")
@@ -271,6 +279,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="VHSColorBleed" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 50
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/VHSColorBleed"]
 material = SubResource("ShaderMaterial_sa2jk")
@@ -282,6 +291,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Vignette" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 60
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Vignette"]
 material = SubResource("ShaderMaterial_3d14i")
@@ -293,6 +303,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Sharpen2" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 70
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Sharpen2"]
 material = SubResource("ShaderMaterial_vw16o")
@@ -304,6 +315,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Grain" type="CanvasLayer" parent="PostProcessingStack"]
+layer = 80
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessingStack/Grain"]
 material = SubResource("ShaderMaterial_hyboy")
@@ -313,5 +325,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="CanvasLayer" type="CanvasLayer" parent="PostProcessingStack"]
